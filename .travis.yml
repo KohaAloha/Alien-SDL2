@@ -12,7 +12,7 @@ before_install:
   - sudo apt-get -y purge ruby libtiff4 libtiff4-dev libtiffxx0c2
   - sudo apt-get autoremove
 
-  - rm -rf /usr/lib/x86_64-linux-gnu/libz.so
+  - sudo rm -rf /usr/lib/x86_64-linux-gnu/libz.so
   - rm -rf ~/.gvm
   - rm -rf ~/.rvm
   - sudo updatedb
