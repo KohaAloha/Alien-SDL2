@@ -9,6 +9,7 @@ perl:
 before_install:
 # install tiff
   - sudo apt-get install locate
+  - sudo apt-get -y purge ruby
   - sudo updatedb
   - sudo locate zlib > /tmp/aa
   - sudo cat /tmp/aa
