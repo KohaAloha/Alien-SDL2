@@ -10,6 +10,7 @@ before_install:
 # install tiff
   - sudo apt-get install locate
   - sudo apt-get -y purge ruby libtiff4 libtiff4-dev libtiffxx0c2
+  - apt-get autoremove
   - sudo updatedb
   - sudo locate zlib > /tmp/aa
   - sudo cat /tmp/aa
