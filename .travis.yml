@@ -8,6 +8,7 @@ perl:
 
 before_install:
 # install tiff
+  - sudo apt-get install locate
   - sudo updatedb
   - sudo locate zlib > /tmp/aa
   - sudo cat /tmp/aa
