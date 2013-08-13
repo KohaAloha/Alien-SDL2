@@ -12,6 +12,7 @@ before_install:
   - sudo apt-get -y purge ruby libtiff4 libtiff4-dev libtiffxx0c2
   - sudo apt-get autoremove
   - rm -rf ~/.gvm
+  - rm -rf ~/.rvm
   - sudo updatedb
   - sudo locate zlib.so | xargs -I {} sudo rm -rf {}
   - sudo updatedb
