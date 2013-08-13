@@ -8,23 +8,21 @@ perl:
 
 before_install:
 # install tiff
-  - sudo apt-get install locate
+#  - sudo apt-get install locate
   - sudo apt-get -y purge ruby libtiff4 libtiff4-dev libtiffxx0c2 zlib1g-dev
   - sudo apt-get autoremove
 
-#  - sudo rm -rf /usr/lib/x86_64-linux-gnu/libz.so
-#  - sudo rm -rf /usr/lib/x86_64-linux-gnu/libz.a
-  - rm -rf ~/.gvm
-  - rm -rf ~/.rvm
-  - sudo updatedb
+#  - rm -rf ~/.gvm
+#  - rm -rf ~/.rvm
+#  - sudo updatedb
 #  - sudo locate zlib.so | xargs -I {} sudo rm -rf {}
 
-  - sudo updatedb
-  - sudo locate zlib > /tmp/aa
+#  - sudo updatedb
+#  - sudo locate zlib > /tmp/aa
 
 
-  - sudo locate libz > /tmp/a1
-  - sudo cat /tmp/a1
+#  - sudo locate libz > /tmp/a1
+#  - sudo cat /tmp/a1
 
 
   - sudo apt-get install automake
