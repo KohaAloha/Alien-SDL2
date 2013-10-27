@@ -191,8 +191,8 @@ our $source_packs = [
         ],
         sha1sum  => '9ed975587f09a1776ba9776dcc74a58e695aba6e',
         patches => [],
-#        prereq_libs => ['SDL2', 'ogg', 'vorbis', 'smpeg'],
-        prereq_libs => ['SDL2', 'ogg', 'vorbis'],
+        prereq_libs => ['SDL2', 'ogg', 'vorbis', 'smpeg'],
+#        prereq_libs => ['SDL2', 'ogg', 'vorbis'],
       },
       {
         pack => 'SDL2_ttf',
