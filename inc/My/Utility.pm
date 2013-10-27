@@ -118,13 +118,12 @@ our $source_packs = [
       },
       {
         pack => 'SDL2',
-        version => '2.0.0',
-        dirname => 'SDL2-2.0.0',
+        version => '2.0.1',
+        dirname => 'SDL2-2.0.1',
         url => [
-          'http://www.libsdl.org/release/SDL2-2.0.0.tar.gz',
-          'http://strawberryperl.com/package/kmx/sdl/src/SDL2-2.0.0.tar.gz',
+          'http://www.libsdl.org/release/SDL2-2.0.1.tar.gz',
         ],
-        sha1sum  => 'a907eb5203abad6649c1eae0120d96c0a1931350',
+        sha1sum  => 'e40051311b648e4e60ed1683f62a948d93a0a49f',
         patches => [],
         prereq_libs => ['pthread'],
       },
