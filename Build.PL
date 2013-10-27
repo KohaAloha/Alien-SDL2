@@ -8,8 +8,10 @@ use My::Utility qw(check_config_script check_prebuilt_binaries check_prereqs_lib
 
 use Getopt::Long;
 my ($ans, $travis)   = '';
-GetOptions (  "travis"  => \$travis)  ;
+GetOptions (  "t|travis:i"  => \$travis)  ;
 $travis = 0 unless defined  $travis;
+
+warn $travis;
 
 print "Welcome to Alien::SDL2 module installation\n";
 print "------------------------------------------\n";
@@ -193,10 +195,10 @@ else {
   }
 
   # select option '1' for travis
-  if ($travis == 1) {
-      $ans = 1;
+  if ($travis > 0 ) {
+      $ans = $travis;
       #set 'travis' var for inc/My/Builder.pm
-      $build->notes( 'travis', '1' );
+      $build->notes( 'travis', $travis );
   }
 
   # or prompt user for build option
