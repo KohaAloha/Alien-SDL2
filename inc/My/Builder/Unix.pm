@@ -45,7 +45,7 @@ sub build_binaries {
   my $make = $self->_get_make;
 
   foreach my $pack (@{$bp->{members}}) {
-    if($pack->{pack} =~ m/^tiff|png|ogg|vorbis|z$/ && check_prereqs_libs($pack->{pack})->[0]) {
+    if($pack->{pack} =~ m/^smpeg|tiff|png|ogg|vorbis|z$/ && check_prereqs_libs($pack->{pack})->[0]) {
       print "SKIPPING package '" . $pack->{dirname} . "' (already installed)...\n";
     }
     else {
@@ -72,6 +72,7 @@ sub build_binaries {
       $run_configure    = $self->prompt("Run ./configure for '$pack->{pack}' again?", "y") if (-f "config.status");
       if (lc($run_configure) eq 'y') {
         my $cmd = $self->_get_configure_cmd($pack->{pack}, $prefixdir);
+
         unless($self->run_custom($cmd)) {
           if(-f "config.log" && open(CONFIGLOG, "<config.log")) {
             print "config.log:\n";
@@ -116,6 +117,7 @@ sub _get_configure_cmd {
     # does not support params CFLAGS=...
     $cmd = "./configure --prefix=$escaped_prefixdir";
   }
+
   else {
     $cmd = "./configure --prefix=$escaped_prefixdir --enable-static=yes --enable-shared=yes $extra" .
            " CFLAGS=\"$extra_cflags\" LDFLAGS=\"$extra_ldflags\"";
@@ -123,6 +125,10 @@ sub _get_configure_cmd {
 
   if($pack eq 'vorbis') {
     $cmd = "PKG_CONFIG_PATH=\"$escaped_prefixdir/lib/pkgconfig:\$PKG_CONFIG_PATH\" $cmd";
+  }
+
+  if($pack eq 'smpeg' ) {
+    $cmd = "./autogen.sh ; ./configure";
   }
 
   return $cmd;

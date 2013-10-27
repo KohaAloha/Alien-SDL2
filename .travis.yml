@@ -13,17 +13,19 @@ before_install:
   - sudo apt-get install automake
 
 # install deps
-  - cat ./cpan-deps | cpanm --sudo --notest -v
+#  - cat ./cpan-deps | cpanm --sudo --notest -v
+  - cat ./cpan-deps | cpanm --sudo --notest
   - cat ./cpan-deps
   - dpkg -l
 
 install:
-  - perl ./Build.PL --travis
-  - ./Build
+  - sudo ./Build clean
+  - perl ./Build.PL --travis 1
+  - cat ./_build/notes
   - sudo ./Build install
 
 script:
   - prove
 
 notifications:
-  irc: "irc.perl.org#sdl"
+  irc: "irc.perl.org#sdl-xxx"

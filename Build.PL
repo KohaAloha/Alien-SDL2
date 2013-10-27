@@ -7,9 +7,11 @@ use Config;
 use My::Utility qw(check_config_script check_prebuilt_binaries check_prereqs_libs check_prereqs_tools $source_packs);
 
 use Getopt::Long;
-my ($ans, $travis)   = 0;
-GetOptions (  "travis:i"  => \$travis)  ;
+my ($ans, $travis)   = '';
+GetOptions (  "t|travis:i"  => \$travis)  ;
 $travis = 0 unless defined  $travis;
+
+warn $travis;
 
 print "Welcome to Alien::SDL2 module installation\n";
 print "------------------------------------------\n";
@@ -145,7 +147,7 @@ else {
 
   if( $build->can_build_binaries_from_sources || scalar(@candidates) ) {
     for(qw(pthread SDL2
-           z jpeg tiff png SDL2_image
+           z jpeg tiff png smpeg webp SDL2_image
            ogg vorbis vorbisfile SDL2_mixer
            freetype SDL2_ttf
            SDL2_gfx)) {
@@ -193,10 +195,10 @@ else {
   }
 
   # select option '1' for travis
-  if ($travis == 1) {
-      $ans = 1;
+  if ($travis > 0 ) {
+      $ans = $travis;
       #set 'travis' var for inc/My/Builder.pm
-      $build->notes( 'travis', '1' );
+      $build->notes( 'travis', $travis );
   }
 
   # or prompt user for build option

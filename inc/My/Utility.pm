@@ -19,6 +19,7 @@ our $inc_lib_candidates = {
   '/usr/include'             => '/usr/lib',
   '/usr/X11R6/include'       => '/usr/X11R6/lib',
   '/usr/local/include/smpeg' => '/usr/local/lib',
+  '/usr/local/include/webp'  => '/usr/local/lib',
 };
 $inc_lib_candidates->{'/usr/pkg/include/smpeg'} = '/usr/local/lib'            if -f '/usr/pkg/include/smpeg/smpeg.h';
 $inc_lib_candidates->{'/usr/include/smpeg'}     = '/usr/lib'                  if -f '/usr/include/smpeg/smpeg.h';
@@ -72,6 +73,20 @@ our $source_packs = [
         patches => [],
         prereq_libs => [],
       },
+
+
+      {
+        pack => 'webp',
+        version => '0.3.1',
+        dirname => 'libwebp-0.3.1',
+        url => [
+          'http://webp.googlecode.com/files/libwebp-0.3.1.tar.gz'
+        ],
+        sha1sum  => '52e3d2b6c0b80319baa33b8ebed89618769d9dd8',
+        patches => [],
+        prereq_libs => [],
+      },
+
       {
         pack => 'jpeg',
         version => '9',
@@ -83,6 +98,7 @@ our $source_packs = [
         patches => [],
         prereq_libs => [],
       },
+
       {
         pack => 'tiff',
         version => '4.0.3',
@@ -117,29 +133,6 @@ our $source_packs = [
         prereq_libs => ['SDL2', 'freetype'],
       },
       {
-        pack => 'SDL2',
-        version => '2.0.1',
-        dirname => 'SDL2-2.0.1',
-        url => [
-          'http://www.libsdl.org/release/SDL2-2.0.1.tar.gz',
-        ],
-        sha1sum  => 'e40051311b648e4e60ed1683f62a948d93a0a49f',
-        patches => [],
-        prereq_libs => ['pthread'],
-      },
-      {
-        pack => 'SDL2_image',
-        version => '2.0.0',
-        dirname => 'SDL2_image-2.0.0',
-        url => [
-          'http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz',
-          'http://strawberryperl.com/package/kmx/sdl/src/SDL2_image-2.0.0.tar.gz',
-        ],
-        sha1sum  => '20b1b0db9dd540d6d5e40c7da8a39c6a81248865',
-        patches => [],
-        prereq_libs => ['SDL2', 'jpeg', 'tiff', 'png'],
-      },
-      {
         pack => 'ogg',
         version => '1.3.1',
         dirname => 'libogg-1.3.1',
@@ -166,6 +159,47 @@ our $source_packs = [
         ],
         prereq_libs => [],
       },
+
+
+      {
+        pack => 'SDL2',
+        version => '2.0.1',
+        dirname => 'SDL2-2.0.1',
+        url => [
+          'http://www.libsdl.org/release/SDL2-2.0.1.tar.gz',
+        ],
+        sha1sum  => 'e40051311b648e4e60ed1683f62a948d93a0a49f',
+        patches => [],
+        prereq_libs => ['pthread'],
+      },
+
+
+
+
+      {
+        pack => 'smpeg',
+        version => '1.4.5',
+        dirname => 'libsmpeg-1.4.5',
+        url => [
+          'http://106.187.50.84/pub/libsmpeg-1.4.5.tgz',
+        ],
+        sha1sum  => 'b0db9866e331bcc38cd9f3eef46a31fab0609711',
+        patches => [],
+        prereq_libs => [],
+      },
+
+      {
+        pack => 'SDL2_image',
+        version => '2.0.0',
+        dirname => 'SDL2_image-2.0.0',
+        url => [
+          'http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz',
+          'http://strawberryperl.com/package/kmx/sdl/src/SDL2_image-2.0.0.tar.gz',
+        ],
+        sha1sum  => '20b1b0db9dd540d6d5e40c7da8a39c6a81248865',
+        patches => [],
+        prereq_libs => ['SDL2', 'jpeg', 'tiff', 'png', 'webp'],
+      },
       {
         pack => 'SDL2_mixer',
         version => '2.0.0',
@@ -176,7 +210,8 @@ our $source_packs = [
         ],
         sha1sum  => '9ed975587f09a1776ba9776dcc74a58e695aba6e',
         patches => [],
-        prereq_libs => ['SDL2', 'ogg', 'vorbis', 'smpeg'],
+#        prereq_libs => ['SDL2', 'ogg', 'vorbis', 'smpeg'],
+        prereq_libs => ['SDL2', 'ogg', 'vorbis'],
       },
       {
         pack => 'SDL2_ttf',
@@ -200,17 +235,6 @@ our $source_packs = [
         sha1sum  => '3ba18531d34f442ba9f4f6d84feb353dfb9c8130',
         patches => [],
         prereq_libs => ['SDL2'], 
-      },
-      {
-        pack => 'smpeg',
-        version => '20130301-svn',
-        dirname => 'libsmpeg-svn20130301',
-        url => [
-          'http://strawberryperl.com/package/kmx/sdl/src/libsmpeg-svn20130301.tar.gz',
-        ],
-        sha1sum  => 'bba9f1f5313bf02bd4e5ee9f7b7d7459086647a1',
-        patches => [],
-        prereq_libs => ['SDL'],
       },
     ],
   },
@@ -277,61 +301,70 @@ sub check_prebuilt_binaries
 }
 
 sub check_prereqs_libs {
-  my @libs = @_;
-  my $ret  = 1;
+    my @libs = @_;
+    my $ret  = 1;
 
-  foreach my $lib (@libs) {
-    print "checking for $lib... ";
-    my $found_dll          = '';
-    my $found_lib          = '';
-    my $found_inc          = '';
-    my $header_map = {
-        'z'          => 'zlib',
-        'jpeg'       => 'jpeglib',
-        'vorbis'     => 'vorbisenc',
-        'SDL2_gfx'   => 'SDL2_gfxPrimitives',
-        'SDL2_image' => 'SDL_image',
-        'SDL2_ttf'   => 'SDL_ttf',
-        'SDL2'       => 'SDL_version',
-    };
-    my $header             = (defined $header_map->{$lib}) ? $header_map->{$lib} : $lib;
-    my $dlext = get_dlext();
-    foreach (keys %$inc_lib_candidates) {
-      my $inc = $_;
-      my $ld = $inc_lib_candidates->{$inc};
-      next unless -d $_ && (-d $ld || ref $ld eq 'ARRAY');
-	if( ref $ld eq 'ARRAY' ) {
-		   my $ld_size = scalar( @{ $ld } );
-		   foreach ( 0..$ld_size ) {
-			next unless (defined $ld->[$_] && -d $ld->[$_]);
-			  ($found_dll, $found_lib, $found_inc) = find_dll_lib_inc($inc, $ld->[$_], $lib, $dlext, $header );
-			last if $found_lib;
-		}
-	}
-	else {
-	  ($found_dll, $found_lib, $found_inc) = find_dll_lib_inc($inc, $ld, $lib, $dlext, $header,);
-	}
-      last if $found_lib && $found_inc;
+    foreach my $lib (@libs) {
+        print "checking for $lib... ";
+        my $found_dll  = '';
+        my $found_lib  = '';
+        my $found_inc  = '';
+        my $header_map = {
+            'z'          => 'zlib',
+            'jpeg'       => 'jpeglib',
+            'vorbis'     => 'vorbisenc',
+            'webp'       => 'decode',
+            'smpeg'       => 'smpeg',
+#            'SDL2_gfx'   => 'SDL2_gfxPrimitives',
+#            'SDL2_image' => 'SDL_image',
+#            'SDL2_ttf'   => 'SDL_ttf',
+#            'SDL2_mixer' => 'SDL_mixer',
+            'SDL2'       => 'SDL_version',
+        };
+        my $header
+            = ( defined $header_map->{$lib} ) ? $header_map->{$lib} : $lib;
+        my $dlext = get_dlext();
+        foreach ( keys %$inc_lib_candidates ) {
+            my $inc = $_;
+            my $ld  = $inc_lib_candidates->{$inc};
+            next unless -d $_ && ( -d $ld || ref $ld eq 'ARRAY' );
+            if ( ref $ld eq 'ARRAY' ) {
+                my $ld_size = scalar( @{$ld} );
+                foreach ( 0 .. $ld_size ) {
+                    next unless ( defined $ld->[$_] && -d $ld->[$_] );
+                    ( $found_dll, $found_lib, $found_inc )
+                        = find_dll_lib_inc( $inc, $ld->[$_], $lib, $dlext,
+                        $header );
+                    last if $found_lib;
+                }
+            }
+            else {
+                ( $found_dll, $found_lib, $found_inc )
+                    = find_dll_lib_inc( $inc, $ld, $lib, $dlext, $header, );
+            }
+            last if $found_lib && $found_inc;
+        }
+
+        if ( $found_lib && $found_inc ) {
+            print "yes\n";
+            $ret &= 1;
+        }
+        else {
+            print "no\n";
+            $ret = 0;
+        }
+        warn "###ERROR### Can't find $lib, will not compile libSDL2"
+            if ( $lib =~ 'pthread' && $ret == 0 );
+
+        if ( scalar(@libs) == 1 ) {
+            return $ret
+                ? [ ( get_header_version($found_inc) || 'found' ),
+                $found_dll ]
+                : [ 0, undef ];
+        }
     }
 
-    if($found_lib && $found_inc) {
-      print "yes\n";
-      $ret &= 1;
-    }
-    else {
-      print "no\n";
-      $ret = 0;
-    }
-  warn "###ERROR### Can't find $lib, will not compile libSDL2" if ($lib =~ 'pthread' && $ret == 0);
-
-    if( scalar(@libs) == 1 ) {
-      return $ret
-        ? [(get_header_version($found_inc) || 'found'), $found_dll]
-        : [0, undef];
-    }
-  }
-
-  return $ret;
+    return $ret;
 }
 
 sub check_prereqs {
