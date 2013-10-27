@@ -305,10 +305,10 @@ sub check_prereqs_libs {
             'jpeg'       => 'jpeglib',
             'vorbis'     => 'vorbisenc',
             'webp'       => 'decode',
-            'SDL2_gfx'   => 'SDL2_gfxPrimitives',
-            'SDL2_image' => 'SDL_image',
-            'SDL2_ttf'   => 'SDL_ttf',
-            'SDL2_mixer' => 'SDL_mixer',
+#            'SDL2_gfx'   => 'SDL2_gfxPrimitives',
+#            'SDL2_image' => 'SDL_image',
+#            'SDL2_ttf'   => 'SDL_ttf',
+#            'SDL2_mixer' => 'SDL_mixer',
             'SDL2'       => 'SDL_version',
         };
         my $header
