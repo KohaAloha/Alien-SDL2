@@ -7,8 +7,8 @@ use Config;
 use My::Utility qw(check_config_script check_prebuilt_binaries check_prereqs_libs check_prereqs_tools $source_packs);
 
 use Getopt::Long;
-my ($ans, $travis)   = 0;
-GetOptions (  "travis:i"  => \$travis)  ;
+my ($ans, $travis)   = '';
+GetOptions (  "travis"  => \$travis)  ;
 $travis = 0 unless defined  $travis;
 
 print "Welcome to Alien::SDL2 module installation\n";
@@ -145,7 +145,7 @@ else {
 
   if( $build->can_build_binaries_from_sources || scalar(@candidates) ) {
     for(qw(pthread SDL2
-           z jpeg tiff png SDL2_image
+           z jpeg tiff png webp SDL2_image
            ogg vorbis vorbisfile SDL2_mixer
            freetype SDL2_ttf
            SDL2_gfx)) {

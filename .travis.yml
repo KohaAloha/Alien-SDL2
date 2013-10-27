@@ -1,10 +1,10 @@
 language: perl
 perl:
-  - "5.10"
-  - "5.12"
-  - "5.14"
-  - "5.16"
-  - "5.18"
+#  - "5.10"
+#  - "5.12"
+#  - "5.14"
+#  - "5.16"
+#  - "5.18"
 
 before_install:
 # install tiff
@@ -26,4 +26,4 @@ script:
   - prove
 
 notifications:
-  irc: "irc.perl.org#sdl"
+  irc: "irc.perl.org#sdl-xxx"

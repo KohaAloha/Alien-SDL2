@@ -1,4 +1,5 @@
 Archive::Extract
+Archive::Zip
 Capture::Tiny
 Cwd
 Digest::SHA

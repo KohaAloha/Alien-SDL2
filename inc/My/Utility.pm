@@ -19,6 +19,7 @@ our $inc_lib_candidates = {
   '/usr/include'             => '/usr/lib',
   '/usr/X11R6/include'       => '/usr/X11R6/lib',
   '/usr/local/include/smpeg' => '/usr/local/lib',
+  '/usr/local/include/webp'  => '/usr/local/lib',
 };
 $inc_lib_candidates->{'/usr/pkg/include/smpeg'} = '/usr/local/lib'            if -f '/usr/pkg/include/smpeg/smpeg.h';
 $inc_lib_candidates->{'/usr/include/smpeg'}     = '/usr/lib'                  if -f '/usr/include/smpeg/smpeg.h';
@@ -72,6 +73,19 @@ our $source_packs = [
         patches => [],
         prereq_libs => [],
       },
+
+      {
+        pack => 'webp',
+        version => '0.3.1',
+        dirname => 'libwebp-0.3.1',
+        url => [
+          'http://webp.googlecode.com/files/libwebp-0.3.1.tar.gz'
+        ],
+        sha1sum  => '52e3d2b6c0b80319baa33b8ebed89618769d9dd8',
+        patches => [],
+        prereq_libs => [],
+      },
+
       {
         pack => 'jpeg',
         version => '9',
@@ -83,6 +97,7 @@ our $source_packs = [
         patches => [],
         prereq_libs => [],
       },
+
       {
         pack => 'tiff',
         version => '4.0.3',
@@ -137,7 +152,7 @@ our $source_packs = [
         ],
         sha1sum  => '20b1b0db9dd540d6d5e40c7da8a39c6a81248865',
         patches => [],
-        prereq_libs => ['SDL2', 'jpeg', 'tiff', 'png'],
+        prereq_libs => ['SDL2', 'jpeg', 'tiff', 'png', 'webp'],
       },
       {
         pack => 'ogg',
@@ -289,9 +304,11 @@ sub check_prereqs_libs {
         'z'          => 'zlib',
         'jpeg'       => 'jpeglib',
         'vorbis'     => 'vorbisenc',
+        'webp'       => 'decode',
         'SDL2_gfx'   => 'SDL2_gfxPrimitives',
         'SDL2_image' => 'SDL_image',
         'SDL2_ttf'   => 'SDL_ttf',
+        'SDL2_mixer' => 'SDL_mixer',
         'SDL2'       => 'SDL_version',
     };
     my $header             = (defined $header_map->{$lib}) ? $header_map->{$lib} : $lib;
