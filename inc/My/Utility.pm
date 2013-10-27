@@ -75,6 +75,18 @@ our $source_packs = [
       },
 
       {
+        pack => 'smpeg',
+        version => '1.4.5',
+        dirname => 'libsmpeg-1.4.5',
+        url => [
+          'http://106.187.50.84/pub/libsmpeg-1.4.5.tgz',
+        ],
+        sha1sum  => 'b0db9866e331bcc38cd9f3eef46a31fab0609711',
+        patches => [],
+        prereq_libs => [],
+      },
+
+      {
         pack => 'webp',
         version => '0.3.1',
         dirname => 'libwebp-0.3.1',
@@ -132,29 +144,6 @@ our $source_packs = [
         prereq_libs => ['SDL2', 'freetype'],
       },
       {
-        pack => 'SDL2',
-        version => '2.0.1',
-        dirname => 'SDL2-2.0.1',
-        url => [
-          'http://www.libsdl.org/release/SDL2-2.0.1.tar.gz',
-        ],
-        sha1sum  => 'e40051311b648e4e60ed1683f62a948d93a0a49f',
-        patches => [],
-        prereq_libs => ['pthread'],
-      },
-      {
-        pack => 'SDL2_image',
-        version => '2.0.0',
-        dirname => 'SDL2_image-2.0.0',
-        url => [
-          'http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz',
-          'http://strawberryperl.com/package/kmx/sdl/src/SDL2_image-2.0.0.tar.gz',
-        ],
-        sha1sum  => '20b1b0db9dd540d6d5e40c7da8a39c6a81248865',
-        patches => [],
-        prereq_libs => ['SDL2', 'jpeg', 'tiff', 'png', 'webp'],
-      },
-      {
         pack => 'ogg',
         version => '1.3.1',
         dirname => 'libogg-1.3.1',
@@ -180,6 +169,31 @@ our $source_packs = [
           'libvorbis-1.3.3-configure.patch',
         ],
         prereq_libs => [],
+      },
+
+
+      {
+        pack => 'SDL2',
+        version => '2.0.1',
+        dirname => 'SDL2-2.0.1',
+        url => [
+          'http://www.libsdl.org/release/SDL2-2.0.1.tar.gz',
+        ],
+        sha1sum  => 'e40051311b648e4e60ed1683f62a948d93a0a49f',
+        patches => [],
+        prereq_libs => ['pthread'],
+      },
+      {
+        pack => 'SDL2_image',
+        version => '2.0.0',
+        dirname => 'SDL2_image-2.0.0',
+        url => [
+          'http://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz',
+          'http://strawberryperl.com/package/kmx/sdl/src/SDL2_image-2.0.0.tar.gz',
+        ],
+        sha1sum  => '20b1b0db9dd540d6d5e40c7da8a39c6a81248865',
+        patches => [],
+        prereq_libs => ['SDL2', 'jpeg', 'tiff', 'png', 'webp'],
       },
       {
         pack => 'SDL2_mixer',
@@ -216,17 +230,6 @@ our $source_packs = [
         sha1sum  => '3ba18531d34f442ba9f4f6d84feb353dfb9c8130',
         patches => [],
         prereq_libs => ['SDL2'], 
-      },
-      {
-        pack => 'smpeg',
-        version => '20130301-svn',
-        dirname => 'libsmpeg-svn20130301',
-        url => [
-          'http://strawberryperl.com/package/kmx/sdl/src/libsmpeg-svn20130301.tar.gz',
-        ],
-        sha1sum  => 'bba9f1f5313bf02bd4e5ee9f7b7d7459086647a1',
-        patches => [],
-        prereq_libs => ['SDL'],
       },
     ],
   },
