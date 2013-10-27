@@ -285,12 +285,14 @@ sub check_prereqs_libs {
     my $found_dll          = '';
     my $found_lib          = '';
     my $found_inc          = '';
-    my $header_map         = {
-      'z'       => 'zlib',
-      'jpeg'    => 'jpeglib',
-      'vorbis'  => 'vorbisenc',
-      'SDL2_gfx' => 'SDL2_gfxPrimitives',
-      'SDL2'     => 'SDL_version',
+    my $header_map = {
+        'z'          => 'zlib',
+        'jpeg'       => 'jpeglib',
+        'vorbis'     => 'vorbisenc',
+        'SDL2_gfx'   => 'SDL2_gfxPrimitives',
+        'SDL2_image' => 'SDL_image',
+        'SDL2_ttf'   => 'SDL_ttf',
+        'SDL2'       => 'SDL_version',
     };
     my $header             = (defined $header_map->{$lib}) ? $header_map->{$lib} : $lib;
     my $dlext = get_dlext();
