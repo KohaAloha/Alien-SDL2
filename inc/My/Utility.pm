@@ -292,63 +292,68 @@ sub check_prebuilt_binaries
 }
 
 sub check_prereqs_libs {
-  my @libs = @_;
-  my $ret  = 1;
+    my @libs = @_;
+    my $ret  = 1;
 
-  foreach my $lib (@libs) {
-    print "checking for $lib... ";
-    my $found_dll          = '';
-    my $found_lib          = '';
-    my $found_inc          = '';
-    my $header_map = {
-        'z'          => 'zlib',
-        'jpeg'       => 'jpeglib',
-        'vorbis'     => 'vorbisenc',
-        'webp'       => 'decode',
-        'SDL2_gfx'   => 'SDL2_gfxPrimitives',
-        'SDL2_image' => 'SDL_image',
-        'SDL2_ttf'   => 'SDL_ttf',
-        'SDL2_mixer' => 'SDL_mixer',
-        'SDL2'       => 'SDL_version',
-    };
-    my $header             = (defined $header_map->{$lib}) ? $header_map->{$lib} : $lib;
-    my $dlext = get_dlext();
-    foreach (keys %$inc_lib_candidates) {
-      my $inc = $_;
-      my $ld = $inc_lib_candidates->{$inc};
-      next unless -d $_ && (-d $ld || ref $ld eq 'ARRAY');
-	if( ref $ld eq 'ARRAY' ) {
-		   my $ld_size = scalar( @{ $ld } );
-		   foreach ( 0..$ld_size ) {
-			next unless (defined $ld->[$_] && -d $ld->[$_]);
-			  ($found_dll, $found_lib, $found_inc) = find_dll_lib_inc($inc, $ld->[$_], $lib, $dlext, $header );
-			last if $found_lib;
-		}
-	}
-	else {
-	  ($found_dll, $found_lib, $found_inc) = find_dll_lib_inc($inc, $ld, $lib, $dlext, $header,);
-	}
-      last if $found_lib && $found_inc;
+    foreach my $lib (@libs) {
+        print "checking for $lib... ";
+        my $found_dll  = '';
+        my $found_lib  = '';
+        my $found_inc  = '';
+        my $header_map = {
+            'z'          => 'zlib',
+            'jpeg'       => 'jpeglib',
+            'vorbis'     => 'vorbisenc',
+            'webp'       => 'decode',
+            'SDL2_gfx'   => 'SDL2_gfxPrimitives',
+            'SDL2_image' => 'SDL_image',
+            'SDL2_ttf'   => 'SDL_ttf',
+            'SDL2_mixer' => 'SDL_mixer',
+            'SDL2'       => 'SDL_version',
+        };
+        my $header =
+          ( defined $header_map->{$lib} ) ? $header_map->{$lib} : $lib;
+        my $dlext = get_dlext();
+        foreach ( keys %$inc_lib_candidates ) {
+            my $inc = $_;
+            my $ld  = $inc_lib_candidates->{$inc};
+            next unless -d $_ && ( -d $ld || ref $ld eq 'ARRAY' );
+            if ( ref $ld eq 'ARRAY' ) {
+                my $ld_size = scalar( @{$ld} );
+                foreach ( 0 .. $ld_size ) {
+                    next unless ( defined $ld->[$_] && -d $ld->[$_] );
+                    ( $found_dll, $found_lib, $found_inc ) =
+                      find_dll_lib_inc( $inc, $ld->[$_], $lib, $dlext,
+                        $header );
+                    last if $found_lib;
+                }
+            }
+            else {
+                ( $found_dll, $found_lib, $found_inc ) =
+                  find_dll_lib_inc( $inc, $ld, $lib, $dlext, $header, );
+            }
+            last if $found_lib && $found_inc;
+        }
+
+        if ( $found_lib && $found_inc ) {
+            print "yes\n";
+            $ret &= 1;
+        }
+        else {
+            print "no\n";
+            $ret = 0;
+        }
+        warn "###ERROR### Can't find $lib, will not compile libSDL2"
+          if ( $lib =~ 'pthread' && $ret == 0 );
+
+        if ( scalar(@libs) == 1 ) {
+            return $ret
+              ? [ ( get_header_version($found_inc) || 'found' ), $found_dll ]
+              : [ 0, undef ];
+        }
     }
 
-    if($found_lib && $found_inc) {
-      print "yes\n";
-      $ret &= 1;
-    }
-    else {
-      print "no\n";
-      $ret = 0;
-    }
-  warn "###ERROR### Can't find $lib, will not compile libSDL2" if ($lib =~ 'pthread' && $ret == 0);
-
-    if( scalar(@libs) == 1 ) {
-      return $ret
-        ? [(get_header_version($found_inc) || 'found'), $found_dll]
-        : [0, undef];
-    }
-  }
-
-  return $ret;
+    return $ret;
 }
 
 sub check_prereqs {
