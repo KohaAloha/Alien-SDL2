@@ -108,8 +108,8 @@ sub ACTION_code {
     elsif ( $bp->{buildtype} eq 'build_from_sources' ) {
 
         my $m = '';
-        if ( $self->notes('travis') && $self->notes('travis') == 1 ) {
-            # always select option '1'
+        if ( $self->notes('travis') && $self->notes('travis') > 0  ) {
+            # always select yes/all-messages for travis build
             $m = 1;
         }
         else {
