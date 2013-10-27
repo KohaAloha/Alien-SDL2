@@ -74,17 +74,6 @@ our $source_packs = [
         prereq_libs => [],
       },
 
-      {
-        pack => 'smpeg',
-        version => '1.4.5',
-        dirname => 'libsmpeg-1.4.5',
-        url => [
-          'http://106.187.50.84/pub/libsmpeg-1.4.5.tgz',
-        ],
-        sha1sum  => 'b0db9866e331bcc38cd9f3eef46a31fab0609711',
-        patches => [],
-        prereq_libs => [],
-      },
 
       {
         pack => 'webp',
@@ -183,6 +172,22 @@ our $source_packs = [
         patches => [],
         prereq_libs => ['pthread'],
       },
+
+
+
+
+      {
+        pack => 'smpeg',
+        version => '1.4.5',
+        dirname => 'libsmpeg-1.4.5',
+        url => [
+          'http://106.187.50.84/pub/libsmpeg-1.4.5.tgz',
+        ],
+        sha1sum  => 'b0db9866e331bcc38cd9f3eef46a31fab0609711',
+        patches => [],
+        prereq_libs => [],
+      },
+
       {
         pack => 'SDL2_image',
         version => '2.0.0',
