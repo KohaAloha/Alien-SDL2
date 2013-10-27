@@ -7,8 +7,9 @@ use Config;
 use My::Utility qw(check_config_script check_prebuilt_binaries check_prereqs_libs check_prereqs_tools $source_packs);
 
 use Getopt::Long;
-my ($ans, $travis)   = '';
-GetOptions (  "travis"  => \$travis)  ;
+my ($ans, $travis)   = 0;
+GetOptions (  "travis:i"  => \$travis)  ;
+$travis = 0 unless defined  $travis;
 
 print "Welcome to Alien::SDL2 module installation\n";
 print "------------------------------------------\n";
