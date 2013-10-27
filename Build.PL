@@ -147,7 +147,7 @@ else {
 
   if( $build->can_build_binaries_from_sources || scalar(@candidates) ) {
     for(qw(pthread SDL2
-           z jpeg tiff png webp SDL2_image
+           z jpeg tiff png smpeg webp SDL2_image
            ogg vorbis vorbisfile SDL2_mixer
            freetype SDL2_ttf
            SDL2_gfx)) {
