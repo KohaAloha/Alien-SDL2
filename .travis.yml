@@ -19,7 +19,7 @@ before_install:
 
 install:
   - perl ./Build.PL --travis 1
-  - ./Build
+  - cat ./_build/notes
   - sudo ./Build install
 
 script:
