@@ -311,8 +311,8 @@ sub check_prereqs_libs {
             'SDL2_mixer' => 'SDL_mixer',
             'SDL2'       => 'SDL_version',
         };
-        my $header =
-          ( defined $header_map->{$lib} ) ? $header_map->{$lib} : $lib;
+        my $header
+            = ( defined $header_map->{$lib} ) ? $header_map->{$lib} : $lib;
         my $dlext = get_dlext();
         foreach ( keys %$inc_lib_candidates ) {
             my $inc = $_;
@@ -322,15 +322,15 @@ sub check_prereqs_libs {
                 my $ld_size = scalar( @{$ld} );
                 foreach ( 0 .. $ld_size ) {
                     next unless ( defined $ld->[$_] && -d $ld->[$_] );
-                    ( $found_dll, $found_lib, $found_inc ) =
-                      find_dll_lib_inc( $inc, $ld->[$_], $lib, $dlext,
+                    ( $found_dll, $found_lib, $found_inc )
+                        = find_dll_lib_inc( $inc, $ld->[$_], $lib, $dlext,
                         $header );
                     last if $found_lib;
                 }
             }
             else {
-                ( $found_dll, $found_lib, $found_inc ) =
-                  find_dll_lib_inc( $inc, $ld, $lib, $dlext, $header, );
+                ( $found_dll, $found_lib, $found_inc )
+                    = find_dll_lib_inc( $inc, $ld, $lib, $dlext, $header, );
             }
             last if $found_lib && $found_inc;
         }
@@ -344,12 +344,13 @@ sub check_prereqs_libs {
             $ret = 0;
         }
         warn "###ERROR### Can't find $lib, will not compile libSDL2"
-          if ( $lib =~ 'pthread' && $ret == 0 );
+            if ( $lib =~ 'pthread' && $ret == 0 );
 
         if ( scalar(@libs) == 1 ) {
             return $ret
-              ? [ ( get_header_version($found_inc) || 'found' ), $found_dll ]
-              : [ 0, undef ];
+                ? [ ( get_header_version($found_inc) || 'found' ),
+                $found_dll ]
+                : [ 0, undef ];
         }
     }
 
