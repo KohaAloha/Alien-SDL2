@@ -69,7 +69,7 @@ our $source_packs = [
         url => [
           'https://zlib.net/zlib-1.2.11.tar.gz'
         ],
-        sha1sum  => 'c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1',
+        sha1sum  => 'e6d119755acdf9104d7ba236b1242696940ed6dd',
         patches => [],
         prereq_libs => [],
       },
