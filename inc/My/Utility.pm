@@ -64,12 +64,12 @@ our $source_packs = [
     members => [
       {
         pack => 'z',
-        version => '1.2.8',
-        dirname => 'zlib-1.2.8',
+        version => '1.2.11',
+        dirname => 'zlib-1.2.11',
         url => [
-          'http://zlib.net/zlib-1.2.8.tar.gz'
+          'https://zlib.net/zlib-1.2.11.tar.gz'
         ],
-        sha1sum  => 'a4d316c404ff54ca545ea71a27af7dbc29817088',
+        sha1sum  => 'c3e5e9fdd5004dcb542feda5ee4f0ff0744628baf8ed2dd5d66f8ca1197cb1a1',
         patches => [],
         prereq_libs => [],
       },
