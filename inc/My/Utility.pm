@@ -82,7 +82,7 @@ our $source_packs = [
         url => [
           'https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-0.6.1.tar.gz'
         ],
-        sha1sum  => '52e3d2b6c0b80319baa33b8ebed89618769d9dd8',
+        sha1sum  => '643aea0e04fd66b9251c89217c4e5133ae5dd980',
         patches => [],
         prereq_libs => [],
       },
