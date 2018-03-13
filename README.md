@@ -1,4 +1,4 @@
-# Alien::SDL2 [![Build Status](https://travis-ci.org/KohaAloha/Alien-SDL2.svg?branch=master)](https://travis-ci.org/KohaAloha/Alien-SDL2) [![Build Status](https://travis-ci.org/KohaAloha/Alien-SDL2.svg?branch=ex1)](https://travis-ci.org/KohaAloha/Alien-SDL2)
+# Alien::SDL2 [![Build Status](https://travis-ci.org/KohaAloha/Alien-SDL2.svg?branch=master)](https://travis-ci.org/KohaAloha/Alien-SDL2)
 
 NAME
     Alien::SDL2 - building, finding and using SDL2 binaries
