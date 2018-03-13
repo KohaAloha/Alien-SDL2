@@ -19,7 +19,7 @@ before_install:
   - dpkg -l
 
 install:
-  - perl ./Build.PL --travis
+  - perl ./Build.PL --travis 1
 #  - sudo ./Build clean
   - cat ./_build/notes
   - sudo ./Build install
