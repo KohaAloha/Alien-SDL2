@@ -104,7 +104,7 @@ our $source_packs = [
         version => '4.0.3',
         dirname => 'tiff-4.0.3',
         url => [
-          'ftp://ftp.remotesensing.org/pub/libtiff/tiff-4.0.3.tar.gz',
+          'http://download.osgeo.org/libtiff/old/tiff-4.0.3.tar.gz'
         ],
         sha1sum  => '652e97b78f1444237a82cbcfe014310e776eb6f0',
         patches => ['libtiff.4.0.3.tiffio.h.patch'],
