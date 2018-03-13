@@ -77,10 +77,10 @@ our $source_packs = [
 
       {
         pack => 'webp',
-        version => '0.3.1',
-        dirname => 'libwebp-0.3.1',
+        version => '0.6.1',
+        dirname => 'libwebp-0.6.1',
         url => [
-          'http://webp.googlecode.com/files/libwebp-0.3.1.tar.gz'
+          'https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-0.6.1.tar.gz'
         ],
         sha1sum  => '52e3d2b6c0b80319baa33b8ebed89618769d9dd8',
         patches => [],
